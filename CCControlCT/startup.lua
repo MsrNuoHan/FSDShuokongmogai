@@ -882,18 +882,11 @@ local absHmsSelectWindow = {
 function absHmsSelectWindow:refresh()
     self.drawW.fill()
     local col1 = group[self.group.index].HmsMode == 1 and properties.selectColor or properties.fontColor
-    local col2 = group[self.group.index].HmsMode == 2 and properties.selectColor or properties.fontColor
 
     self.drawW.drawText(13, 99, "Metaphy..", properties.bgColor, col1)
-    self.drawW.drawText(73, 99, "Goggle...", properties.bgColor, col2)
 
     local index = 1
-    local tgtb
-    if group[self.group.index].HmsMode == 1 then
-        tgtb = scanner.players
-    else
-        tgtb = linkedgoggles
-    end
+    local tgtb = scanner.players
 
     for k, v in pairs(tgtb) do
         if index > 10 then
@@ -937,20 +930,13 @@ function absHmsSelectWindow:refresh()
 end
 
 function absHmsSelectWindow:click(x, y, button)
-    if y > 97 and y < 106 then
-        if x > 12 and x < 58 then
-            group[self.group.index].HmsMode = 1
-        elseif x > 72 and x < 116 then
-            group[self.group.index].HmsMode = 2
-        end
+    -- 移除Goggle模式切换逻辑
+    if y > 97 and y < 106 and x > 12 and x < 58 then
+        group[self.group.index].HmsMode = 1  -- 只保留模式1
     elseif y >= self.yStart and (x >= self.xStart and x < self.xStart + 72) then
         local index = math.floor((y - self.yStart) / 8 + 1)
-        local tgtb
-        if group[self.group.index].HmsMode == 1 then
-            tgtb = scanner.players
-        else
-            tgtb = linkedgoggles
-        end
+        local tgtb = scanner.players  -- 只使用玩家列表
+
         local i2, flag = 1, false
         for k, v in pairs(tgtb) do
             if i2 == index then
