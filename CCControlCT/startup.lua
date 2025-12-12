@@ -883,7 +883,7 @@ function absHmsSelectWindow:refresh()
     self.drawW.fill()
     local col1 = group[self.group.index].HmsMode == 1 and properties.selectColor or properties.fontColor
 
-    self.drawW.drawText(13, 99, "Metaphy..", properties.bgColor, col1)
+    self.drawW.drawText(32, 99, "Metaphy..", properties.bgColor, col1)
 
     local index = 1
     local tgtb = scanner.players
